@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_startup_screen"
+    android:layout_width="match_parent"
+    android:layout_height="812dp"
+    android:background="@drawable/container_main_screen">
+
+    <ImageView
+        android:id="@+id/container_shapes"
+        android:layout_width="290dp"
+        android:layout_height="270dp"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="-99dp"
+        android:layout_marginTop="-109dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_shape" />
+
+    <ImageView
+        android:id="@+id/img_mobile_ux"
+        android:layout_width="172.56dp"
+        android:layout_height="170dp"
+
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="105dp"
+
+        android:scaleType="centerInside"
+        android:src="@drawable/img_mobile_ux" />
+
+    <TextView
+        android:id="@+id/text_read_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="319dp"
+        android:layout_marginBottom="-1dp"
+        android:gravity="left|center_vertical"
+
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Đọc Báo Tiện Lợi Hơn với TFT"
+        android:textColor="#FF000000"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/text_upgrade_info"
+        android:layout_width="281dp"
+        android:layout_height="72dp"
+
+        android:layout_marginTop="377dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal|top"
+        android:includeFontPadding="false"
+        android:lineHeight="17.83dp"
+        android:text="Đón nhận Dị Thường, Lập Đội với những Nâng Cấp mới, giải phóng tiềm năng thực sự của những vị tướng Arcane đầy đáng sợ!"
+        android:textColor="#FF000000"
+        android:textSize="13dp" />
+
+    <FrameLayout
+        android:id="@+id/container_button"
+        android:layout_width="325dp"
+        android:layout_height="62dp"
+
+        android:layout_marginTop="541dp"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/img_button_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="@drawable/img_button_rectangle"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/text_start_now"
+            android:layout_width="324dp"
+            android:layout_height="72.39dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="-5.19dp"
+            android:layout_marginBottom="-5.19dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineHeight="24.69dp"
+            android:maxLines="3"
+            android:text="Đăng Nhập"
+            android:textColor="#FFFFFFFF"
+            android:textSize="18dp" />
+    </FrameLayout>
+</FrameLayout>

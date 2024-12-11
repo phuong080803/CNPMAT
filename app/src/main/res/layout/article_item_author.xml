@@ -1,0 +1,87 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_main_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/container_main_screen">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="153dp"
+        android:layout_marginTop="10dp"
+        android:padding="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Article Title -->
+
+            <!-- Article Metadata -->
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="78dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/articleImage"
+                    android:layout_width="141dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_sample_image" />
+
+                <TextView
+                    android:id="@+id/articleTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="3# Danh sách Hệ Tộc DTCL mùa 13 Bước Tới Arcane chi tiết nhất"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Article Image -->
+
+            <!-- Article Content -->
+
+            <TextView
+                android:id="@+id/authorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-20dp"
+                android:text="Lme"
+                android:textColor="#6A6A6A"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/articleTimestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="0dp"
+                android:text="24 phút trước"
+                android:textColor="#6A6A6A"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="0dp"
+                android:text="được chấp nhận"
+                android:textColor="#6A6A6A"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

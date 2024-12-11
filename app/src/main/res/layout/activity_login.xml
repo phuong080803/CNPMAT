@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_dang_nhap"
+    android:layout_width="match_parent"
+    android:layout_height="812dp"
+    android:background="@drawable/container_dang_nhap">
+
+    <ImageView
+        android:id="@+id/image_shape"
+        android:layout_width="290dp"
+        android:layout_height="270dp"
+        android:layout_marginLeft="-99dp"
+        android:layout_marginTop="-109dp"
+        android:layout_gravity="top|left"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_shape" />
+
+    <TextView
+        android:id="@+id/text_welcome_back"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginTop="122dp"
+        android:layout_marginBottom="-1dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="left|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Chào Mừng Trở Lại"
+        android:textColor="#FF000000"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/register_link"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="673dp"
+        android:layout_marginBottom="-1dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Chưa có tài khoản? Đăng Ký Ngay"
+        android:textColor="#FF000000"
+        android:textSize="14dp" />
+
+    <FrameLayout
+        android:id="@+id/container_button"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+
+        android:layout_marginTop="583dp"
+        android:layout_gravity="top|left">
+
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="262dp"
+            android:layout_height="72.39dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-5.19dp"
+            android:layout_marginBottom="-5.19dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineHeight="24.69dp"
+            android:maxLines="3"
+            android:text="Đăng Nhập"
+            android:textColor="#FFFFFFFF"
+            android:textSize="18dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/container_input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+
+        android:layout_marginTop="395dp">
+
+
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="320dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="match_parent"
+            android:hint="Email" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/container_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_marginTop="467dp">
+
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="320dp"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="match_parent"
+            android:hint="Password" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/image_notification_illustration"
+        android:layout_width="171.86dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginTop="179dp"
+        android:layout_gravity="top|left"
+        android:scaleType="centerInside"
+        android:src="@drawable/image_notification_illustration" />
+
+    <ImageView
+        android:id="@+id/container_slice"
+        android:layout_width="275dp"
+        android:layout_height="214dp"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="156dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/container_slice" />
+</FrameLayout>

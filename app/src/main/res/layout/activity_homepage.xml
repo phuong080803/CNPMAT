@@ -1,0 +1,195 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/container_main_screen">
+
+    <!-- Background -->
+    <ImageView
+        android:id="@+id/img_rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/img_rectangle"
+        android:scaleType="centerInside" />
+
+    <ImageView
+        android:id="@+id/img_shape"
+        android:layout_width="290dp"
+        android:layout_height="270dp"
+        android:layout_gravity="top"
+        android:layout_marginLeft="-89dp"
+        android:layout_marginTop="-117dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_shape" />
+
+    <!-- Search Section -->
+    <EditText
+        android:id="@+id/searchInput"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="110dp"
+        android:gravity="left|center_vertical"
+        android:hint="Tìm kiếm ở đây"
+        android:textColor="#FF909090"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="112dp"
+        android:src="@drawable/container_search" />
+
+    <ImageView
+        android:id="@+id/filterIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="345dp"
+        android:layout_marginTop="112dp"
+        android:src="@drawable/container_setting" />
+
+    <!-- Page Title -->
+    <TextView
+        android:id="@+id/txt_home_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="Trang Chủ"
+        android:textColor="#FF000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Notification and Menu -->
+    <ImageView
+        android:id="@+id/notificationIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="380dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/container_notification" />
+
+    <ImageView
+        android:id="@+id/menuIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/container_text_align_left" />
+
+    <!-- Categories Section -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:background="#FFF"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/categoryContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:padding="8dp" />
+    </HorizontalScrollView>
+
+    <!-- List of Posts -->
+    <ListView
+        android:id="@+id/postListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="220dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="16dp" />
+
+    <!-- Navbar Fixed at the Bottom -->
+    <LinearLayout
+        android:id="@+id/container_frame"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="-5dp"
+        android:background="@drawable/container_frame"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:padding="10dp">
+
+        <!-- Home Section -->
+        <FrameLayout
+            android:id="@+id/container_group3"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp">
+
+
+            <ImageView
+                android:id="@+id/image_home"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_home" />
+
+
+        </FrameLayout>
+
+        <!-- Applications Section -->
+
+
+
+
+        <!-- Profile Section -->
+        <FrameLayout
+            android:id="@+id/container_group6"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_account_circle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_account_circle" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/container_group4"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_list" />
+
+
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/container_group5"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/setting"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/setting" />
+
+
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

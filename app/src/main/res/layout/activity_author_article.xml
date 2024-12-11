@@ -1,0 +1,189 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/container_main_screen">
+
+
+    <!-- Search Section -->
+    <ImageView
+        android:id="@+id/img_shape"
+        android:layout_width="290dp"
+        android:layout_height="270dp"
+        android:layout_gravity="top"
+        android:layout_marginLeft="-89dp"
+        android:layout_marginTop="-117dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_shape" />
+
+    <FrameLayout
+        android:id="@+id/container_header_profile"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="30dp">
+
+        <FrameLayout
+            android:id="@+id/container_group"
+            android:layout_width="201dp"
+            android:layout_height="49dp"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/container_group">
+
+            <TextView
+                android:id="@+id/authorName"
+                android:layout_width="126dp"
+                android:layout_height="21dp"
+                android:layout_gravity="top|left"
+                android:layout_marginTop="-1.79dp"
+                android:layout_marginBottom="-1.79dp"
+                android:gravity="left|center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="VietHoangxFer"
+                android:textColor="#FF000000"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/Email"
+                android:layout_width="200dp"
+                android:layout_height="17.42dp"
+                android:layout_gravity="left"
+                android:layout_marginTop="26.13dp"
+                android:layout_marginBottom="5.44dp"
+                android:gravity="left|center_vertical"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="whyrumad_i3anx"
+                android:textColor="#FF000000"
+                android:textSize="12dp" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/image_michael_dam_unsplash"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_profile" />
+
+    </FrameLayout>
+    <ImageView
+        android:id="@+id/container_dang_bai"
+        android:layout_width="147dp"
+        android:layout_height="27dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/container_frame_dang_bai"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="5dp">
+
+
+    </ImageView>
+    <ImageView
+        android:id="@+id/container_line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="top|left"
+
+        android:layout_marginTop="170dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/container_line" />
+
+    <!-- ListView với nút Sửa và Xóa -->
+
+    <!-- Navbar Fixed at the Bottom -->
+    <ListView
+        android:id="@+id/postListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="180dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="16dp" />
+
+    <LinearLayout
+        android:id="@+id/container_frame"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="-5dp"
+        android:background="@drawable/container_frame"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:padding="10dp">
+
+        <!-- Home Section -->
+        <FrameLayout
+            android:id="@+id/container_group3"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/image_home"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_home" />
+        </FrameLayout>
+
+        <!-- Profile Section -->
+        <FrameLayout
+            android:id="@+id/container_group6"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/image_account_circle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_account_circle" />
+        </FrameLayout>
+
+        <!-- Applications Section -->
+        <FrameLayout
+            android:id="@+id/container_group4"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/image_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_list" />
+        </FrameLayout>
+
+        <!-- Settings Section -->
+        <FrameLayout
+            android:id="@+id/container_group5"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/setting"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/setting" />
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>
