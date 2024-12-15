@@ -12,28 +12,29 @@ import org.json.JSONObject;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CommentDAOImpl implements CommentDAO {
 
-    private static final String SUPABASE_URL = "https://<your-project-ref>.supabase.co/rest/v1/";
-    private static final String SUPABASE_KEY = "<your-supabase-key>";
+    private static final String SUPABASE_URL = "https://nqgjdcjznjbqefgyoicd.supabase.co/rest/v1/";
+    private static  String SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xZ2pkY2p6bmpicWVmZ3lvaWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI2MzM2MTAsImV4cCI6MjA0ODIwOTYxMH0.quwMnNHNMUOQp3h92cdNkgk3y67Ufifiyut-MNDJBmQ";
     private final OkHttpClient client = new OkHttpClient();
 
     @Override
-    public void add(int user_id, int article_id, String content) throws JSONException {
+    public void add(String user_id, int article_id, String content) throws JSONException {
         String url = SUPABASE_URL + "comments";
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("user_id", user_id);
         jsonObject.put("article_id", article_id);
         jsonObject.put("comment", content);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            jsonObject.put("date", LocalDateTime.now().toString());
-        }
-
+        String currentTimestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()).format(new Date());
+        jsonObject.put("date", currentTimestamp);
         RequestBody body = RequestBody.create(
                 jsonObject.toString(),
                 MediaType.parse("application/json")

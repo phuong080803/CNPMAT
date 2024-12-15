@@ -11,8 +11,17 @@ public class Articles {
     public int kindsId;
     public String writerId;
     public int statusId;
+    public String imgText;
 
-    public Articles(int id, String title, String publishDate, int views, String abstractContent, String content, int categoriesId, int kindsId, String writerId, int statusId) {
+    public String getImg() {
+        return imgText;
+    }
+
+    public void setImg(String imgText) {
+        this.imgText = imgText;
+    }
+
+    public Articles(int id, String title, String publishDate, int views, String abstractContent, String content, int categoriesId, int kindsId, String writerId, int statusId, String imgText) {
         this.id = id;
         this.title = title;
         this.publishDate = publishDate;
@@ -23,6 +32,7 @@ public class Articles {
         this.kindsId = kindsId;
         this.writerId = writerId;
         this.statusId = statusId;
+        this.imgText = imgText;
 
     }
 
@@ -87,5 +97,16 @@ public class Articles {
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
-
+    public String getStatus() {
+        switch (statusId) {
+            case 30:
+                return "Pending";
+            case 100:
+                return "Approved";
+            case 0:
+                return "Denied";
+            default:
+                return "Unknown";
+        }
+    }
 }

@@ -30,24 +30,36 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.container_group_Security);
         findViewById(R.id.container_group_Appearance);
         findViewById(R.id.container_group_help);
+        findViewById(R.id.container_group_Logout).setOnClickListener(v->logoutUser());
         profileicon.setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+            String role = sharedPreferences.getString("role", "unknow");
             if (isUserLoggedIn()) {
-                // Nếu đã đăng nhập, chuyển đến ProfileActivity
-                Intent intent = new Intent(SettingsActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                if (role.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(SettingsActivity.this, ProfileAdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SettingsActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
             } else {
-                // Nếu chưa đăng nhập, chuyển đến Non_Login_Activity
                 Intent intent = new Intent(SettingsActivity.this, Non_Login_Activity.class);
                 startActivity(intent);
             }
         });
         authorArticle.setOnClickListener(v -> {
             if (isUserLoggedIn()) {
-                // Nếu đã đăng nhập, chuyển đến ProfileActivity
-                Intent intent = new Intent(SettingsActivity.this, AuthorActivity.class);
-                startActivity(intent);
+                SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+                String role = sharedPreferences.getString("role", "unknow");
+                if (role.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(SettingsActivity.this, AdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(SettingsActivity.this, HomePageActivity.class);
+                    startActivity(intent);
+                }
+
             } else {
-                // Nếu chưa đăng nhập, chuyển đến Non_Login_Activity
                 Intent intent = new Intent(SettingsActivity.this, Non_Login_Activity.class);
                 startActivity(intent);
             }
@@ -60,6 +72,21 @@ public class SettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
             startActivity(intent);
         });
+    }
+    private void logoutUser() {
+        // Xóa token khỏi SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Xóa tất cả các dữ liệu trong SharedPreferences
+        editor.apply();
+
+        // Chuyển về màn hình đăng nhập
+        Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa stack để không quay lại
+        startActivity(intent);
+
+        // Hiển thị thông báo
+        finish();
     }
     private boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);

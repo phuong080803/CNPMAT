@@ -1,111 +1,64 @@
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/container_main_screen">
+    android:layout_height="match_parent">
 
-
+    <!-- Hình ảnh -->
     <ImageView
         android:id="@+id/img_shape"
         android:layout_width="290dp"
         android:layout_height="270dp"
-        android:layout_gravity="top"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="-89dp"
         android:layout_marginTop="-117dp"
         android:scaleType="centerInside"
         android:src="@drawable/img_shape" />
 
-    <!-- Search Section -->
-    <!-- Search Section -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/search_background"
-        android:padding="8dp"
-        android:layout_gravity="top">
-
-        <!-- Search Icon -->
-        <ImageView
-            android:id="@+id/searchIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/container_search"
-            android:layout_marginEnd="8dp" />
-
-        <!-- Search Input -->
-        <EditText
-            android:id="@+id/searchInput"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@id/searchIcon"
-            android:layout_marginStart="8dp"
-            android:hint="Tìm kiếm ở đây"
-            android:background="@android:color/transparent"
-            android:textColor="#FF909090"
-            android:textSize="14sp"
-            android:gravity="center_vertical" />
-    </RelativeLayout>
-
-    <!-- Page Title -->
+    <!-- Tiêu đề -->
     <TextView
-        android:id="@+id/txt_home_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:text="Trang Chủ"
-        android:textColor="#FF000000"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:text="Quản lý bài viết"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Notification and Menu -->
-
-    <!-- Categories Section -->
-    <HorizontalScrollView
-        android:layout_width="match_parent"
+    <!-- Nút thêm bài viết -->
+    <TextView
+        android:id="@+id/btnAddArticle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:background="#FFF"
-        android:scrollbars="none">
+        android:layout_below="@+id/img_shape"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-50dp"
+        android:text="Danh sách bài viết chờ duyệt"
+        android:layout_marginBottom="16dp" />
 
-        <LinearLayout
-            android:id="@+id/categoryContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="5dp"
-            android:padding="8dp" />
-    </HorizontalScrollView>
-
-    <!-- List of Posts -->
+    <!-- Danh sách bài viết -->
     <ListView
-        android:id="@+id/postListView"
+        android:id="@+id/lvArticles"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="220dp"
+        android:layout_height="0dp"
+        android:layout_above="@+id/container_frame"
+        android:layout_below="@+id/btnAddArticle"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
-        android:paddingTop="16dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="80dp"/>
+        android:paddingRight="16dp"/>
 
-    <!-- Navbar Fixed at the Bottom -->
+    <!-- Thanh điều hướng (cố định ở cuối trang) -->
     <LinearLayout
         android:id="@+id/container_frame"
         android:layout_width="match_parent"
         android:layout_height="73dp"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="-5dp"
         android:background="@drawable/container_frame"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:padding="10dp">
+        android:paddingTop="10dp">
 
         <!-- Home Section -->
         <FrameLayout
@@ -113,46 +66,35 @@
             android:layout_width="80dp"
             android:layout_height="45dp"
             android:layout_marginTop="10dp">
-
-
             <ImageView
                 android:id="@+id/image_home"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:src="@drawable/image_home" />
-
-
         </FrameLayout>
 
-        <!-- Applications Section -->
-
-
-
+        <!-- Profile Section -->
         <FrameLayout
             android:id="@+id/container_group4"
             android:layout_width="80dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp">
-
             <ImageView
                 android:id="@+id/image_list"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:src="@drawable/image_list" />
-
-
         </FrameLayout>
-        <!-- Profile Section -->
+
         <FrameLayout
             android:id="@+id/container_group6"
             android:layout_width="80dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp">
-
             <ImageView
                 android:id="@+id/image_account_circle"
                 android:layout_width="30dp"
@@ -161,22 +103,19 @@
                 android:src="@drawable/image_account_circle" />
         </FrameLayout>
 
-
+        <!-- Settings Section -->
         <FrameLayout
             android:id="@+id/container_group5"
             android:layout_width="80dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp">
-
             <ImageView
                 android:id="@+id/setting"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:src="@drawable/setting" />
-
-
         </FrameLayout>
     </LinearLayout>
-</FrameLayout>
+</RelativeLayout>

@@ -51,7 +51,8 @@ public class ArticlesDAOImpl implements ArticlesDAO {
                             obj.optInt("categories_id", 0),
                             obj.optInt("kinds_id", 0),
                             obj.optString("writer_id", ""),
-                            obj.optInt("status_id", 0)
+                            obj.optInt("status_id", 0),
+                            obj.optString("img")
                     );
                     articlesList.add(article);
                 }
@@ -133,13 +134,15 @@ public class ArticlesDAOImpl implements ArticlesDAO {
         try {
             JSONObject body = new JSONObject();
             body.put("title", article.getTitle());
+            body.put("publish_date", article.getPublishDate());
+            body.put("views",article.getViews());
             body.put("abstract_content", article.getAbstractContent());
             body.put("content", article.getContent());
             body.put("categories_id", article.getCategoriesId());
             body.put("writer_id", article.getWriterId().toString()); // UUID as string
             body.put("kinds_id", article.getKindsId());
             body.put("status_id", article.getStatusId());
-
+            body.put("img",article.getImg());
             RequestBody requestBody = RequestBody.create(body.toString(), okhttp3.MediaType.get("application/json"));
 
             Request request = new Request.Builder()
@@ -191,7 +194,8 @@ public class ArticlesDAOImpl implements ArticlesDAO {
                             obj.getInt("categories_id"),
                             obj.optInt("kinds_id", 0),
                             obj.getString("writer_id"), // Parse writer_id as UUID
-                            obj.optInt("status_id", 0)
+                            obj.optInt("status_id", 0),
+                            obj.optString("img")
                     );
                     articlesList.add(article);
                 }
@@ -229,7 +233,8 @@ public class ArticlesDAOImpl implements ArticlesDAO {
                             obj.optInt("categories_id", 0),
                             obj.optInt("kinds_id", 0),
                             obj.optString("writer_id", ""),
-                            obj.optInt("status_id", 0)
+                            obj.optInt("status_id", 0),
+                            obj.optString("img")
                     );
                     articlesList.add(article);
                 }
@@ -267,7 +272,8 @@ public class ArticlesDAOImpl implements ArticlesDAO {
                             obj.optInt("categories_id", 0),
                             obj.optInt("kinds_id", 0),
                             obj.optString("writer_id", ""),
-                            obj.optInt("status_id", 0)
+                            obj.optInt("status_id", 0),
+                            obj.optString("img")
                     );
                     articlesList.add(article);
                 }
@@ -278,6 +284,41 @@ public class ArticlesDAOImpl implements ArticlesDAO {
             e.printStackTrace();
         }
         return articlesList;
+    }
+
+    public void edit(int id, String title, String abstractContent, String content, int categoryId, int statusId) {
+        String url = SUPABASE_URL + "articles?id=eq." + id;
+
+        try {
+            JSONObject body = new JSONObject();
+            if (title != null) body.put("title", title);
+            if (abstractContent != null) body.put("abstract_content", abstractContent);
+            if (content != null) body.put("content", content);
+            if (categoryId != -1) body.put("categories_id", categoryId);
+            body.put("status_id", statusId);
+
+            RequestBody requestBody = RequestBody.create(body.toString(), okhttp3.MediaType.get("application/json"));
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("apikey", SUPABASE_KEY)
+                    .header("Authorization", "Bearer " + SUPABASE_KEY)
+                    .patch(requestBody)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    System.out.println(response.body().string());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Other methods to implement as per the interface

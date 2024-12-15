@@ -41,11 +41,17 @@ public class ArticleDetailAuthorActivity extends AppCompatActivity {
         });
         authorArticle.setOnClickListener(v -> {
             if (isUserLoggedIn()) {
-                // Nếu đã đăng nhập, chuyển đến ProfileActivity
-                Intent intent = new Intent(ArticleDetailAuthorActivity.this, AuthorActivity.class);
-                startActivity(intent);
+                SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+                String role = sharedPreferences.getString("role", "unknow");
+                if (role.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(ArticleDetailAuthorActivity.this, AdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(ArticleDetailAuthorActivity.this, HomePageActivity.class);
+                    startActivity(intent);
+                }
+
             } else {
-                // Nếu chưa đăng nhập, chuyển đến Non_Login_Activity
                 Intent intent = new Intent(ArticleDetailAuthorActivity.this, Non_Login_Activity.class);
                 startActivity(intent);
             }

@@ -7,7 +7,7 @@ import org.json.JSONException;
 import java.util.List;
 
 public interface CommentDAO {
-    public void add(int user_id, int article_id, String content) throws JSONException;
+    public void add(String user_id, int article_id, String content) throws JSONException;
     public void updateComment(int id, String content) throws JSONException;
     public Comments findById(int id);
     public List<Comments> findByArtId(int artId);

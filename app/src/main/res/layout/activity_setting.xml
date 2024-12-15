@@ -29,7 +29,7 @@
         android:layout_weight="1"
 
         android:gravity="center_horizontal|top"
-        android:layout_marginTop="-120dp"
+        android:layout_marginTop="-160dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -57,8 +57,8 @@
 
                 <ImageView
                     android:id="@+id/container_navigation_arrow_back_ios"
-                    android:layout_width="19.64dp"
-                    android:layout_height="19.64dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/setting" />
             </LinearLayout>
@@ -113,8 +113,8 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginLeft="17dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="top|left">
+
+                android:layout_gravity="center_vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -182,8 +182,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginLeft="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_gravity="top|left">
+                android:layout_gravity="center_vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -213,7 +212,7 @@
             android:layout_gravity="center_horizontal">
 
             <FrameLayout
-                android:id="@+id/container_group4"
+                android:id="@+id/container_group41"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -255,8 +254,7 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginLeft="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_gravity="top|left">
+                android:layout_gravity="center_vertical">
 
 
 
@@ -271,6 +269,7 @@
 
 
             </FrameLayout>
+
         <FrameLayout
         android:id="@+id/container_group_help"
         android:layout_width="364dp"
@@ -307,7 +306,6 @@
                 android:textColor="#FF2C3A4B"
                 android:textSize="20dp" />
 
-            >
         </FrameLayout>
 
         <FrameLayout
@@ -315,8 +313,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginLeft="17dp"
-            android:layout_marginTop="12dp"
-            android:layout_gravity="top|left">
+            android:layout_gravity="center_vertical">
 
 
 
@@ -327,10 +324,77 @@
 
 
             </FrameLayout>
+
         </FrameLayout>
 
 
+
     </FrameLayout>
+        <FrameLayout
+            android:id="@+id/container_group_Logout"
+            android:layout_width="364dp"
+            android:layout_height="85dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal">
+
+            <FrameLayout
+                android:id="@+id/container_group20"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/image_rectangle21"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_rectangle"
+                    android:scaleType="centerCrop" />
+
+
+                <TextView
+                    android:id="@+id/text_Logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_gravity="top|left"
+                    android:gravity="left|center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Log Out"
+                    android:textColor="#FF2C3A4B"
+                    android:textSize="20dp" />
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/image_group11"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="17dp"
+                android:layout_gravity="center_vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/drawable_shape_21"
+                    android:layout_gravity="center_vertical">
+
+                    <FrameLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/drawable_shape_31"
+                        android:layout_gravity="center"
+                        >
+
+                    </FrameLayout>
+                </FrameLayout>
+
+
+            </FrameLayout>
+        </FrameLayout>
 
 
 
@@ -343,11 +407,11 @@
         android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="-15dp"
         android:background="@drawable/container_frame"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:padding="10dp">
+        android:paddingTop="10dp">
 
         <!-- Home Section -->
         <FrameLayout
@@ -364,6 +428,22 @@
         </FrameLayout>
 
         <!-- Profile Section -->
+
+
+        <!-- Applications Section -->
+        <FrameLayout
+            android:id="@+id/container_group4"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/image_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_list" />
+        </FrameLayout>
         <FrameLayout
             android:id="@+id/container_group6"
             android:layout_width="80dp"
@@ -377,24 +457,7 @@
                 android:layout_gravity="center"
                 android:src="@drawable/image_account_circle" />
         </FrameLayout>
-
         <!-- Settings Section -->
-
-
-        <!-- Applications Section -->
-        <FrameLayout
-            android:id="@+id/container_group10"
-            android:layout_width="80dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp">
-            <ImageView
-                android:id="@+id/image_list"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/image_list" />
-        </FrameLayout>
         <FrameLayout
             android:id="@+id/container_group5"
             android:layout_width="80dp"

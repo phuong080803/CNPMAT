@@ -7,10 +7,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/container_main_screen">
 
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="153dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="3dp">
 
@@ -19,11 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Article Title -->
-
             <!-- Article Metadata -->
-
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="78dp"
@@ -47,13 +42,9 @@
                     android:textColor="#000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
-            <!-- Article Image -->
-
-            <!-- Article Content -->
-
+            <!-- Article Author and Timestamp -->
             <TextView
                 android:id="@+id/authorName"
                 android:layout_width="wrap_content"
@@ -73,16 +64,32 @@
                 android:text="24 phút trước"
                 android:textColor="#6A6A6A"
                 android:textSize="14sp" />
-            <TextView
-                android:id="@+id/articleStatus"
-                android:layout_width="wrap_content"
+
+            <!-- Approve and Deny Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pending"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:layout_marginLeft="340dp"
-                android:layout_marginTop="-40dp"
-                android:textColor="@android:color/holo_orange_light" />
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/approveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/teal_700"
+                    android:text="Approve"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/denyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/red"
+                    android:text="Deny"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

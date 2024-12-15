@@ -161,7 +161,19 @@
                 android:layout_gravity="center"
                 android:src="@drawable/image_home" />
         </FrameLayout>
-
+        <FrameLayout
+            android:id="@+id/container_group4"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/image_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_list" />
+        </FrameLayout>
         <!-- Profile Section -->
         <FrameLayout
             android:id="@+id/container_group6"
@@ -193,18 +205,6 @@
         </FrameLayout>
 
         <!-- Applications Section -->
-        <FrameLayout
-            android:id="@+id/container_group4"
-            android:layout_width="80dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp">
-            <ImageView
-                android:id="@+id/image_list"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/image_list" />
-        </FrameLayout>
+
     </LinearLayout>
 </FrameLayout>

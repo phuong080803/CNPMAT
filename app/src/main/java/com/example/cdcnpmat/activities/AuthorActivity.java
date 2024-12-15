@@ -19,6 +19,7 @@ import com.example.cdcnpmat.Model.Bean.Categories;
 import com.example.cdcnpmat.Model.DAOiplm.ArticlesDAOImpl;
 import com.example.cdcnpmat.Model.DAOiplm.CategoriesDAOImpl;
 import com.example.cdcnpmat.R;
+import com.example.cdcnpmat.adapters.ArticleAuthorAdapter;
 import com.example.cdcnpmat.adapters.ArticlesAdapter;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class AuthorActivity extends AppCompatActivity {
     private ListView lv_main;
     private ImageView menuIcon, searchIcon, filterIcon, homeicon, profileicon, settingicon, postArticle, authorArticle;
     private TextView authorName, authorEmail;
-    private ArticlesAdapter adapter;
+    private ArticleAuthorAdapter adapter;
     private ArrayList<Articles> list;
     private LinearLayout categoryContainer;
     private CategoriesDAOImpl categoriesDAO;
@@ -60,18 +61,23 @@ public class AuthorActivity extends AppCompatActivity {
         String email2 =  sharedPreferences.getString("email","");
         String name = sharedPreferences.getString("name", "Unknown");
         profileicon.setOnClickListener(v -> {
+
+            String role = sharedPreferences.getString("role", "unknow");
             if (isUserLoggedIn()) {
-                // Nếu đã đăng nhập, chuyển đến ProfileActivity
-                Intent intent = new Intent(AuthorActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                if (role.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(AuthorActivity.this, ProfileAdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(AuthorActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
             } else {
-                // Nếu chưa đăng nhập, chuyển đến Non_Login_Activity
                 Intent intent = new Intent(AuthorActivity.this, Non_Login_Activity.class);
                 startActivity(intent);
             }
         });
         list = new ArrayList<>();
-        adapter = new ArticlesAdapter(this, list);
+        adapter = new ArticleAuthorAdapter(this, list);
         lv_main.setAdapter(adapter);
 
         categoriesDAO = new CategoriesDAOImpl();
@@ -101,11 +107,17 @@ public class AuthorActivity extends AppCompatActivity {
         });
         authorArticle.setOnClickListener(v -> {
             if (isUserLoggedIn()) {
-                // Nếu đã đăng nhập, chuyển đến ProfileActivity
-                Intent intent = new Intent(AuthorActivity.this, AuthorActivity.class);
-                startActivity(intent);
+
+                String role = sharedPreferences.getString("role", "unknow");
+                if (role.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(AuthorActivity.this, AdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(AuthorActivity.this, HomePageActivity.class);
+                    startActivity(intent);
+                }
+
             } else {
-                // Nếu chưa đăng nhập, chuyển đến Non_Login_Activity
                 Intent intent = new Intent(AuthorActivity.this, Non_Login_Activity.class);
                 startActivity(intent);
             }

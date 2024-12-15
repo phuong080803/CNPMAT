@@ -18,8 +18,8 @@ import okhttp3.*;
 public class UsersDAOImpl implements UsersDAO {
 
     private static final String SUPABASE_URL = "https://nqgjdcjznjbqefgyoicd.supabase.co";
-    private static final String SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xZ2pkY2p6bmpicWVmZ3lvaWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI2MzM2MTAsImV4cCI6MjA0ODIwOTYxMH0.quwMnNHNMUOQp3h92cdNkgk3y67Ufifiyut-MNDJBmQ"; // Use the service role key
-    private static final String AUTH_ENDPOINT = "auth/v1/admin/users";
+    private static final String SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xZ2pkY2p6bmpicWVmZ3lvaWNkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMjYzMzYxMCwiZXhwIjoyMDQ4MjA5NjEwfQ.Jg1umrIaOic8pIMCJ_NnreWacTchydC9H8gMSzfZ6t0"; // Use the service role key
+    private static final String AUTH_ENDPOINT = "/auth/v1/admin/users";
     private final OkHttpClient client = new OkHttpClient();
 
     @Override
@@ -58,9 +58,52 @@ public class UsersDAOImpl implements UsersDAO {
     }
 
     @Override
-    public Users findById(int id) {
-        throw new UnsupportedOperationException("Finding users by ID is not supported in Supabase Auth.");
+    public Users findById(String id) {
+        String url = SUPABASE_URL + AUTH_ENDPOINT + "?id=eq." + id; // API endpoint với filter ID
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("apikey", SUPABASE_KEY)
+                .header("Authorization", "Bearer " + SUPABASE_KEY)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
+                String responseBody = response.body().string();
+
+                // Chuyển đổi JSON response thành JSONObject
+                JSONObject jsonObject = new JSONObject(responseBody);
+
+                // Truy cập mảng "users" từ JSONObject
+                JSONArray usersArray = jsonObject.getJSONArray("users");
+
+                if (usersArray.length() > 0) {
+                    // Lấy user đầu tiên từ mảng
+                    JSONObject userObject = usersArray.getJSONObject(0);
+                    JSONObject userMetadata = userObject.getJSONObject("user_metadata");
+
+                    // Tạo đối tượng Users và trả về
+                    return new Users(
+                            userObject.getString("id"),
+                            userMetadata.getString("password"),
+                            userMetadata.getString("role"),
+                            userMetadata.getString("email"),
+                            userMetadata.getString("name"),
+                            userMetadata.getString("phone_number")
+                    );
+                } else {
+                    Log.e("UsersDAOImpl", "No user found with ID: " + id);
+                }
+            } else {
+                Log.e("UsersDAOImpl", "Failed to fetch user by ID: " + response.message());
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return null; // Trả về null nếu không tìm thấy user
     }
+
+
 
     @Override
     public void delete(Users user) {
@@ -97,24 +140,41 @@ public class UsersDAOImpl implements UsersDAO {
         List<Users> usersList = new ArrayList<>();
         try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful() && response.body() != null) {
-                JSONArray array = new JSONArray(response.body().string());
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject json = array.getJSONObject(i);
-                    usersList.add(new Users(
-                            json.getString("id"),
-                            json.optString("user_metadata.password", null),
-                            json.optString("user_metadata.role", null),
-                            json.optString("user_metadata.email", null)
-                    ));
+                String responseBody = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseBody);
+                JSONArray usersArray = jsonObject.getJSONArray("users");
+
+                for (int i = 0; i < usersArray.length(); i++) {
+                    JSONObject userObject = usersArray.getJSONObject(i);
+                    JSONObject userMetadata = userObject.getJSONObject("user_metadata");
+
+                    // Lấy role của user
+                    String role = userMetadata.getString("role");
+
+                    // Loại bỏ user có role là admin
+                    if (!"admin".equalsIgnoreCase(role)) {
+                        Users user = new Users(
+                                userObject.getString("id"),
+                                userMetadata.getString("password"),
+                                role,
+                                userMetadata.getString("email"),
+                                userMetadata.getString("name"),
+                                userMetadata.getString("phone_number")
+                        );
+
+                        usersList.add(user);
+                    }
                 }
+            } else {
+                Log.e("UsersDAOImpl", "Failed to fetch users: " + response.message());
             }
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
         }
         return usersList;
     }
+
+
 
     @Override
     public void assignCategories(int editor_id, int[] catesId) {
@@ -132,7 +192,7 @@ public class UsersDAOImpl implements UsersDAO {
     }
 
     @Override
-    public List<Users> findAllByRole(int role) {
+    public List<Users> findAllByRole(String role) {
         throw new UnsupportedOperationException("Finding users by role is not supported in Supabase Auth.");
     }
 
@@ -142,12 +202,12 @@ public class UsersDAOImpl implements UsersDAO {
     }
 
     @Override
-    public void updateProfile(int id, String fullName, int role, String email) {
+    public void updateProfile(String id, String fullName, String role, String email) {
         throw new UnsupportedOperationException("Updating profiles is not supported in Supabase Auth.");
     }
 
     @Override
-    public void changePassword(int id, String password) {
+    public void changePassword(String id, String password) {
         throw new UnsupportedOperationException("Changing passwords is not supported in Supabase Auth.");
     }
 }

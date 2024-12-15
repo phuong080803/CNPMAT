@@ -1,0 +1,105 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- Tiêu đề trang -->
+    <TextView
+        android:id="@+id/pageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Quản lý người dùng"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000" />
+
+    <!-- Danh sách người dùng -->
+    <ListView
+        android:id="@+id/userListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/pageTitle"
+        android:layout_above="@id/container_frame"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="16dp" />
+
+    <!-- Thanh điều hướng cố định -->
+    <LinearLayout
+        android:id="@+id/container_frame"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-6dp"
+        android:background="@drawable/container_frame"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <!-- Home Section -->
+        <FrameLayout
+            android:id="@+id/container_group3"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_home"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_home" />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/container_group4"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_list" />
+        </FrameLayout>
+
+        <!-- Profile Section -->
+        <FrameLayout
+            android:id="@+id/container_group6"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_account_circle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_account_circle" />
+        </FrameLayout>
+
+        <!-- Applications Section -->
+
+        <!-- Settings Section -->
+        <FrameLayout
+            android:id="@+id/container_group5"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/setting"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/setting" />
+        </FrameLayout>
+    </LinearLayout>
+</RelativeLayout>

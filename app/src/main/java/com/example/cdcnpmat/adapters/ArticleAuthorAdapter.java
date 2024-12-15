@@ -20,12 +20,12 @@ import com.example.cdcnpmat.activities.ArticleDetailActivity;
 import java.net.CookieHandler;
 import java.util.List;
 
-public class ArticlesAdapter extends BaseAdapter {
+public class ArticleAuthorAdapter extends BaseAdapter {
 
     private Context context;
     private List<Articles> articlesList;
 
-    public ArticlesAdapter(Context context, List<Articles> articlesList) {
+    public ArticleAuthorAdapter(Context context, List<Articles> articlesList) {
         this.context = context;
         this.articlesList = articlesList;
     }
@@ -49,13 +49,14 @@ public class ArticlesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.article_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.article_item_author, parent, false);
         }
 
         // Ánh xạ các thành phần View
         TextView titleView = convertView.findViewById(R.id.articleTitle);
         TextView authorView = convertView.findViewById(R.id.authorName);
         TextView timestampView = convertView.findViewById(R.id.articleTimestamp);
+        TextView statusView = convertView.findViewById(R.id.articleStatus);
         ImageView articleImage = convertView.findViewById(R.id.articleImage);
 
         // Lấy bài viết từ danh sách
@@ -68,7 +69,22 @@ public class ArticlesAdapter extends BaseAdapter {
         articleImage.setImageResource(R.drawable.ic_sample_image); // Thay bằng logic ảnh thực tế.
 
         // Gán trạng thái và định dạng màu sắc
-
+        String articleStatus = article.getStatus(); // Status: Pending, Approved, Denied
+        statusView.setText(articleStatus);
+        switch (articleStatus) {
+            case "Pending":
+                statusView.setTextColor(context.getResources().getColor(android.R.color.holo_orange_light));
+                break;
+            case "Approved":
+                statusView.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+                break;
+            case "Denied":
+                statusView.setTextColor(context.getResources().getColor(android.R.color.holo_red_light));
+                break;
+            default:
+                statusView.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+                break;
+        }
 
         // Xử lý sự kiện khi click vào mục
         String imagePath = article.getImg();

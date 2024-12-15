@@ -114,7 +114,10 @@
         android:layout_marginTop="180dp"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
-        android:padding="16dp" />
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:layout_marginBottom="73dp"/>
 
     <LinearLayout
         android:id="@+id/container_frame"
@@ -142,19 +145,7 @@
         </FrameLayout>
 
         <!-- Profile Section -->
-        <FrameLayout
-            android:id="@+id/container_group6"
-            android:layout_width="80dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp">
-            <ImageView
-                android:id="@+id/image_account_circle"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/image_account_circle" />
-        </FrameLayout>
+
 
         <!-- Applications Section -->
         <FrameLayout
@@ -170,7 +161,19 @@
                 android:layout_gravity="center"
                 android:src="@drawable/image_list" />
         </FrameLayout>
-
+        <FrameLayout
+            android:id="@+id/container_group6"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/image_account_circle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_account_circle" />
+        </FrameLayout>
         <!-- Settings Section -->
         <FrameLayout
             android:id="@+id/container_group5"

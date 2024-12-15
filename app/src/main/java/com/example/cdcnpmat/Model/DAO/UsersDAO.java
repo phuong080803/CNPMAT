@@ -7,14 +7,16 @@ import java.util.List;
 
 public interface UsersDAO {
     public int add(Users user);
-    public Users findById(int id);
+    public Users findById(String id);
     public void delete(Users user);
     public List<Users> findAll();
     public void assignCategories(int editor_id, int[] catesId );
     public void deleteEditorCategories(int editor_id );
     public Users findByUsername(String username);
-    public List<Users> findAllByRole(int role);
+    public List<Users> findAllByRole(String role);
     public Users findByEmail(String email);
-    public void updateProfile(int id, String fullName, int role, String email);
-    public void changePassword(int id, String password);
+    public void updateProfile(String id, String fullName, String role, String email);
+    public void changePassword(String id, String password);
+
+
 }

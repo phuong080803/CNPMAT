@@ -9,5 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="selectedBackgroundColor">#FF5722</color> <!-- Màu cam -->
     <color name="defaultBackgroundColor">#FFFFFF</color> <!-- Màu trắng -->
-
+    <color name="red">#FF0000</color>
 </resources>

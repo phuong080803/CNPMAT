@@ -43,9 +43,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         // Ánh xạ các thành phần giao diện
         lv_main = findViewById(R.id.postListView);
-        authorArticle = findViewById(R.id.menuIcon);
         searchIcon = findViewById(R.id.searchIcon);
-        filterIcon = findViewById(R.id.filterIcon);
         searchInput = findViewById(R.id.searchInput);
         categoryContainer = findViewById(R.id.categoryContainer);
         authorArticle = findViewById(R.id.image_list);
@@ -61,39 +59,37 @@ public class HomePageActivity extends AppCompatActivity {
         articlesDAO = new ArticlesDAOImpl();
 
         // Handle clicks on ListView items
-        lv_main.setOnItemClickListener((parent, view, position, id) -> {
-
-            Articles selectedArticle = list.get(position);
-            Intent intent = new Intent(HomePageActivity.this, ArticleDetailActivity.class);
-            String authorId = Long.toString(id);
-            // Pass article details to the ArticleDetailActivity
-            intent.putExtra("title", selectedArticle.getTitle());
-            intent.putExtra("author", selectedArticle.getWriterId()); // Assuming writerId is the author
-            intent.putExtra("timestamp", selectedArticle.getPublishDate());
-            intent.putExtra("content", selectedArticle.getContent());
-            intent.putExtra("imageResId", R.drawable.ic_sample_image); // Replace with actual image logic if available
-
-            startActivity(intent);
-        });
+        
         homeicon.setOnClickListener(v->loadArticles());
         profileicon.setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+            String role = sharedPreferences.getString("role", "unknow");
             if (isUserLoggedIn()) {
-                // Nếu đã đăng nhập, chuyển đến ProfileActivity
-                Intent intent = new Intent(HomePageActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                if (role.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(HomePageActivity.this, ProfileAdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(HomePageActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
             } else {
-                // Nếu chưa đăng nhập, chuyển đến Non_Login_Activity
                 Intent intent = new Intent(HomePageActivity.this, Non_Login_Activity.class);
                 startActivity(intent);
             }
         });
         authorArticle.setOnClickListener(v -> {
             if (isUserLoggedIn()) {
-                // Nếu đã đăng nhập, chuyển đến ProfileActivity
-                Intent intent = new Intent(HomePageActivity.this, AuthorActivity.class);
-                startActivity(intent);
+                SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+                String role = sharedPreferences.getString("role", "unknow");
+                if (role.equalsIgnoreCase("admin")) {
+                    Intent intent = new Intent(HomePageActivity.this, AdminActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(HomePageActivity.this, AuthorActivity.class);
+                    startActivity(intent);
+                }
+
             } else {
-                // Nếu chưa đăng nhập, chuyển đến Non_Login_Activity
                 Intent intent = new Intent(HomePageActivity.this, Non_Login_Activity.class);
                 startActivity(intent);
             }
@@ -101,6 +97,15 @@ public class HomePageActivity extends AppCompatActivity {
         settingicon.setOnClickListener(v->{
             Intent intent = new Intent(HomePageActivity.this, SettingsActivity.class);
             startActivity(intent);
+        });
+        searchInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
+                    (event != null && event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER)) {
+                String query = searchInput.getText().toString().trim();
+                searchArticles(query);
+                return true; // Xử lý sự kiện đã hoàn tất
+            }
+            return false;
         });
         // Load categories and articles
         loadCategories();
@@ -137,23 +142,30 @@ public class HomePageActivity extends AppCompatActivity {
     private void loadArticles() {
         executor.execute(() -> {
             List<Articles> articlesList = articlesDAO.findAll();
+            List<Articles> approvedArticles = new ArrayList<>();
             int maxArticleId = 0;
+
             for (Articles article : articlesList) {
-                if (article.getId() > maxArticleId) {
-                    maxArticleId = article.getId();
+                if (article.getStatusId() == 100) { // Lọc bài viết có trạng thái approved
+                    approvedArticles.add(article);
+                    if (article.getId() > maxArticleId) {
+                        maxArticleId = article.getId();
+                    }
                 }
             }
 
             int finalMaxArticleId = maxArticleId;
             SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("max",finalMaxArticleId);
+            editor.putInt("max", finalMaxArticleId);
+            editor.apply();
+
             runOnUiThread(() -> {
-                if (articlesList.isEmpty()) {
+                if (approvedArticles.isEmpty()) {
                     Toast.makeText(this, "Không có bài viết nào", Toast.LENGTH_SHORT).show();
                 } else {
                     list.clear();
-                    list.addAll(articlesList);
+                    list.addAll(approvedArticles);
                     adapter.notifyDataSetChanged();
                     Toast.makeText(this, "ID lớn nhất: " + finalMaxArticleId, Toast.LENGTH_SHORT).show();
                 }
@@ -162,18 +174,59 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
 
+
     private void loadArticlesByCategory(int categoryId) {
         new Thread(() -> {
             List<Articles> articlesList = articlesDAO.findByCategory(categoryId);
+            List<Articles> approvedArticles = new ArrayList<>();
+
+            for (Articles article : articlesList) {
+                if (article.getStatusId() == 100) { // Lọc bài viết có trạng thái approved
+                    approvedArticles.add(article);
+                }
+            }
+
             runOnUiThread(() -> {
-                if (articlesList.isEmpty()) {
+                if (approvedArticles.isEmpty()) {
                     Toast.makeText(this, "Không có bài viết nào trong danh mục này", Toast.LENGTH_SHORT).show();
                 } else {
                     list.clear();
-                    list.addAll(articlesList);
+                    list.addAll(approvedArticles);
                     adapter.notifyDataSetChanged();
                 }
             });
         }).start();
+    }
+    private void searchArticles(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập từ khóa để tìm kiếm", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        executor.execute(() -> {
+            // Lấy tất cả bài viết từ cơ sở dữ liệu
+            List<Articles> articlesList = articlesDAO.findAll();
+            List<Articles> matchingArticles = new ArrayList<>();
+
+            for (Articles article : articlesList) {
+                if (article.getStatusId() == 100) { // Chỉ tìm kiếm trong các bài đã được duyệt
+                    String title = article.getTitle().toLowerCase();
+                    String lowerQuery = query.toLowerCase();
+                    if (title.contains(lowerQuery)) { // Kiểm tra xem tiêu đề có chứa từ khóa không
+                        matchingArticles.add(article);
+                    }
+                }
+            }
+
+            runOnUiThread(() -> {
+                if (matchingArticles.isEmpty()) {
+                    Toast.makeText(this, "Không tìm thấy bài viết nào phù hợp", Toast.LENGTH_SHORT).show();
+                } else {
+                    list.clear();
+                    list.addAll(matchingArticles);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        });
     }
 }

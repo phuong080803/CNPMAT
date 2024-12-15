@@ -79,29 +79,31 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-
                     String responseBody = response.body().string();
                     try {
                         JSONObject jsonResponse = new JSONObject(responseBody);
                         String accessToken = jsonResponse.getString("access_token");
                         String refreshToken = jsonResponse.getString("refresh_token");
                         String userId = jsonResponse.getJSONObject("user").getString("id");
-                        String phone =jsonResponse.getJSONObject("user").getJSONObject("user_metadata").getString("phone_number");
+                        String phone = jsonResponse.getJSONObject("user").getJSONObject("user_metadata").getString("phone_number");
                         String role = jsonResponse.getJSONObject("user").getJSONObject("user_metadata").getString("role");
                         String name = jsonResponse.getJSONObject("user").getJSONObject("user_metadata").getString("name");
-                        // Lưu token vào SharedPreferences
+
+                        // Lưu token và thông tin người dùng vào SharedPreferences
                         saveToken(accessToken, refreshToken, userId, email, phone, role, name);
 
-
                         runOnUiThread(() -> {
-                            runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show());
-                            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                            // Kiểm tra vai trò và chuyển hướng
+                            Intent intent;
+
+                                intent = new Intent(LoginActivity.this, HomePageActivity.class);
                             intent.putExtra("islogin", true);
                             startActivity(intent);
-                            Intent intent2 = new Intent(LoginActivity.this, AuthorActivity.class);
-                            intent2.putExtra("authorEmail",email);
-                            startActivity(intent2);
+                            finish(); // Đóng LoginActivity
                         });
+
                     } catch (Exception e) {
                         runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show());
                     }

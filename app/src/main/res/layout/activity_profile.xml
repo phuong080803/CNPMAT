@@ -3,7 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
-
+    <ImageView
+        android:id="@+id/img_shape"
+        android:layout_width="290dp"
+        android:layout_height="270dp"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="-89dp"
+        android:layout_marginTop="-117dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_shape" />
     <!-- Nội dung chính của trang -->
     <ScrollView
         android:id="@+id/scrollView"
@@ -16,61 +24,133 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="left">
 
             <!-- Ảnh đại diện -->
             <ImageView
                 android:id="@+id/profileImage"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="16dp"
                 android:src="@drawable/ic_profile"
-                android:scaleType="centerCrop"
-                /> <!-- Khung tròn -->
+                android:scaleType="centerCrop" />
 
             <!-- Tên người dùng -->
             <TextView
                 android:id="@+id/profileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="-80dp"
+                android:layout_marginLeft="120dp"
                 android:text="Tên Người Dùng"
                 android:textSize="18sp"
                 android:textColor="#000"
                 android:textStyle="bold" />
 
             <!-- Email -->
-
-
-            <!-- Số điện thoại -->
             <TextView
                 android:id="@+id/profileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="120dp"
                 android:text="Email"
                 android:textSize="16sp"
                 android:textColor="#7D7D7D" />
-            <TextView
-                android:id="@+id/profilePhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Số điện thoại"
-                android:textSize="16sp"
-                android:textColor="#7D7D7D" />
 
-            <!-- Đăng xuất -->
-            <Button
-                android:id="@+id/logoutButton"
+            <!-- Các thông tin thêm -->
+
+            <ImageView
+                android:id="@+id/container_line"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_gravity="top|left"
+                android:layout_marginTop="50dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/container_line" />
+            <!-- Full Name -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/button_background"
-                android:text="Đăng xuất"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:layout_marginTop="20dp"
+                android:text="Full Name"
+                android:textSize="14sp"
+                android:textColor="#7D7D7D" />
 
+            <EditText
+                android:id="@+id/fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:hint="Full Name"
+                android:textSize="14sp" />
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Email"
+                android:textSize="14sp"
+                android:textColor="#7D7D7D" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:hint="Email"
+                android:textSize="14sp" />
+
+            <!-- Phone -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Phone"
+                android:textSize="14sp"
+                android:textColor="#7D7D7D" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:hint="Phone"
+                android:textSize="14sp" />
+
+            <!-- Role -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Role"
+                android:textSize="14sp"
+                android:textColor="#7D7D7D" />
+
+            <EditText
+                android:id="@+id/role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:hint="Role"
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 
@@ -80,10 +160,10 @@
         android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-6dp"
         android:background="@drawable/container_frame"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
+        android:layout_marginBottom="-5dp"
         android:padding="10dp">
 
         <!-- Home Section -->
@@ -101,6 +181,21 @@
                 android:src="@drawable/image_home" />
         </FrameLayout>
 
+        <FrameLayout
+            android:id="@+id/container_group4"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/image_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_list" />
+        </FrameLayout>
+
         <!-- Profile Section -->
         <FrameLayout
             android:id="@+id/container_group6"
@@ -115,22 +210,6 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:src="@drawable/image_account_circle" />
-        </FrameLayout>
-
-        <!-- Applications Section -->
-        <FrameLayout
-            android:id="@+id/container_group4"
-            android:layout_width="80dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp">
-
-            <ImageView
-                android:id="@+id/image_list"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/image_list" />
         </FrameLayout>
 
         <!-- Settings Section -->
