@@ -145,6 +145,31 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         }).start();
     }
 
+    @Override
+    public int findByNameSync(String categoryName) {
+        String url = SUPABASE_URL + "categories?name_category=eq." + categoryName;
+        int categoryId = -1;
+
+        try {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("apikey", SUPABASE_KEY)
+                    .header("Authorization", "Bearer " + SUPABASE_KEY)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                JSONArray jsonArray = new JSONArray(response.body().string());
+                if (jsonArray.length() > 0) {
+                    categoryId = jsonArray.getJSONObject(0).getInt("id");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categoryId; // Trả về -1 nếu có lỗi
+    }
+
 
     @Override
     public void updateCate(int idCate, String nameCate) throws JSONException {

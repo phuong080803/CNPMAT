@@ -3,6 +3,7 @@ package com.example.cdcnpmat.Model.DAOiplm;
 import com.example.cdcnpmat.Model.Bean.Articles;
 import com.example.cdcnpmat.Model.Bean.Categories;
 import com.example.cdcnpmat.Model.DAO.ArticlesDAO;
+import com.example.cdcnpmat.Model.DAO.UpdateCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -320,6 +321,56 @@ public class ArticlesDAOImpl implements ArticlesDAO {
             e.printStackTrace();
         }
     }
+    public void update(Articles article, String accessToken, UpdateCallback callback) {
+        String url = SUPABASE_URL + "articles?id=eq." + article.getId();
+
+        try {
+            // Tạo JSON body cho yêu cầu PATCH
+            JSONObject body = new JSONObject();
+            body.put("title", article.getTitle());
+            body.put("abstract_content", article.getAbstractContent());
+            body.put("content", article.getContent());
+            body.put("categories_id", article.getCategoriesId());
+            body.put("img", article.getImg());
+
+            // Tạo request body
+            RequestBody requestBody = RequestBody.create(body.toString(), okhttp3.MediaType.get("application/json"));
+
+            // Tạo request với header chứa access token
+            Request request = new Request.Builder()
+                    .url(url)
+                    .patch(requestBody)
+                    .header("Authorization", "Bearer " + accessToken) // Truyền access token
+                    .header("apikey", SUPABASE_KEY)
+                    .build();
+
+            // Thực thi yêu cầu trong background thread
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                    callback.onUpdateResult(false); // Trả về kết quả thất bại
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        callback.onUpdateResult(true); // Trả về kết quả thành công
+                    } else {
+                        System.err.println("Update failed: " + response.code() + " - " + response.message());
+                        callback.onUpdateResult(false);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            callback.onUpdateResult(false);
+        }
+    }
+
+
+
+
 
     // Other methods to implement as per the interface
 }

@@ -15,7 +15,7 @@ public interface UsersDAO {
     public Users findByUsername(String username);
     public List<Users> findAllByRole(String role);
     public Users findByEmail(String email);
-    public void updateProfile(String id, String fullName, String role, String email);
+    public void updateProfile(String id, String fullName, String phone);
     public void changePassword(String id, String password);
 
 

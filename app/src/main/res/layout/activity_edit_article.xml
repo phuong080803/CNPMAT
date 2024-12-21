@@ -59,7 +59,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="Tạo bài viết mới"
+                    android:text="Chỉnh sửa bài viết"
                     android:textColor="#FF09101D"
                     android:textSize="26dp" />
 
@@ -291,11 +291,11 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/container_button1"
+                    android:id="@+id/buttonSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/container_button1"
-                    android:gravity="center"
+                    android:background="@drawable/buttonsave"
+                    android:gravity="center_horizontal|top"
                     android:layout_marginTop="30dp"
                     android:orientation="vertical"
                     android:paddingLeft="18dp"

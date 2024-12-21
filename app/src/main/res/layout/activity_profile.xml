@@ -1,8 +1,10 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
+
     <ImageView
         android:id="@+id/img_shape"
         android:layout_width="290dp"
@@ -12,6 +14,20 @@
         android:layout_marginTop="-117dp"
         android:scaleType="centerInside"
         android:src="@drawable/img_shape" />
+
+    <!-- Nút chỉnh sửa cạnh ảnh đại diện -->
+    <ImageView
+        android:id="@+id/editProfileButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/profileImage"
+        android:layout_alignEnd="@+id/profileImage"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_edit"
+        android:contentDescription="Edit Profile"
+        tools:ignore="NotSibling" />
+
     <!-- Nội dung chính của trang -->
     <ScrollView
         android:id="@+id/scrollView"
@@ -32,8 +48,24 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_profile"
                 android:scaleType="centerCrop" />
+
+            <!-- Biểu tượng chỉnh sửa (ic_edit) -->
+            <ImageView
+                android:id="@+id/editIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_toRightOf="@id/profileImage"
+                android:layout_alignTop="@id/profileImage"
+                android:layout_marginLeft="93dp"
+                android:layout_marginTop="-25dp"
+                android:src="@drawable/ic_edit"
+                android:background="@drawable/circle_background"
+                android:padding="5dp"
+                android:contentDescription="Chỉnh sửa" />
+
 
             <!-- Tên người dùng -->
             <TextView
@@ -57,9 +89,6 @@
                 android:text="Email"
                 android:textSize="16sp"
                 android:textColor="#7D7D7D" />
-
-            <!-- Các thông tin thêm -->
-
             <ImageView
                 android:id="@+id/container_line"
                 android:layout_width="match_parent"
@@ -68,6 +97,7 @@
                 android:layout_marginTop="50dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/container_line" />
+
             <!-- Full Name -->
             <TextView
                 android:layout_width="match_parent"
@@ -83,8 +113,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:padding="10dp"
                 android:hint="Full Name"
                 android:textSize="14sp" />
@@ -98,14 +126,12 @@
                 android:textSize="14sp"
                 android:textColor="#7D7D7D" />
 
-            <EditText
+            <TextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:padding="10dp"
                 android:hint="Email"
                 android:textSize="14sp" />
@@ -125,32 +151,17 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_background"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:padding="10dp"
                 android:hint="Phone"
                 android:textSize="14sp" />
 
-            <!-- Role -->
-            <TextView
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Role"
-                android:textSize="14sp"
-                android:textColor="#7D7D7D" />
-
-            <EditText
-                android:id="@+id/role"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_background"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:padding="10dp"
-                android:hint="Role"
-                android:textSize="14sp" />
+                android:text="Save"
+                android:visibility="gone"
+                android:layout_marginTop="16dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -163,7 +174,6 @@
         android:background="@drawable/container_frame"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginBottom="-5dp"
         android:padding="10dp">
 
         <!-- Home Section -->

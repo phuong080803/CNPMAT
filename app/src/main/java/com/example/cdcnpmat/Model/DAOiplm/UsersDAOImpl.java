@@ -202,9 +202,38 @@ public class UsersDAOImpl implements UsersDAO {
     }
 
     @Override
-    public void updateProfile(String id, String fullName, String role, String email) {
-        throw new UnsupportedOperationException("Updating profiles is not supported in Supabase Auth.");
+    public void updateProfile(String id, String fullName, String phone) {
+        String url = SUPABASE_URL + AUTH_ENDPOINT + "/" + id;
+
+        try {
+            JSONObject metadata = new JSONObject();
+            metadata.put("name", fullName);
+            metadata.put("phone_number", phone);
+
+            JSONObject payload = new JSONObject();
+            payload.put("user_metadata", metadata);
+
+            RequestBody body = RequestBody.create(payload.toString(), MediaType.get("application/json"));
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("apikey", SUPABASE_KEY)
+                    .header("Authorization", "Bearer " + SUPABASE_KEY)
+                    .put(body)
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    Log.d("UsersDAOImpl", "Cập nhật thông tin thành công");
+                } else {
+                    Log.e("UsersDAOImpl", "Cập nhật thông tin thất bại: " + response.message());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     @Override
     public void changePassword(String id, String password) {

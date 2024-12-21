@@ -26,6 +26,6 @@ package com.example.cdcnpmat.Model.DAO;
         public List<Articles> findByCategory(int id);
         
         public List<Articles> findAll();
-
+        public void update(Articles article,String accesstoken, UpdateCallback callback);
     }
 

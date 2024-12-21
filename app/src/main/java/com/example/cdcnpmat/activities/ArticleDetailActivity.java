@@ -84,7 +84,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
         // Configure WebView
         WebSettings webSettings = articleContent.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(false);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
         String htmlHeader = "<html><head><meta charset=\"UTF-8\"><style>img{max-width:100%;height:auto;}</style></head><body style='font-size:30px;'>";

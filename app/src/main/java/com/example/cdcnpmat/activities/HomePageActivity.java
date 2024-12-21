@@ -102,11 +102,12 @@ public class HomePageActivity extends AppCompatActivity {
             if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
                     (event != null && event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER)) {
                 String query = searchInput.getText().toString().trim();
-                searchArticles(query);
-                return true; // Xử lý sự kiện đã hoàn tất
+                searchArticles(query); // Gọi hàm tìm kiếm bài viết
+                return true; // Đã xử lý sự kiện
             }
             return false;
         });
+
         // Load categories and articles
         loadCategories();
         loadArticles();
@@ -224,9 +225,10 @@ public class HomePageActivity extends AppCompatActivity {
                 } else {
                     list.clear();
                     list.addAll(matchingArticles);
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged(); // Cập nhật danh sách bài viết trên giao diện
                 }
             });
         });
     }
+
 }

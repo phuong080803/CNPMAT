@@ -7,12 +7,15 @@ import com.google.gson.JsonParser;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class SupabaseClient {
 
     static final String SUPABASE_URL = "https://nqgjdcjznjbqefgyoicd.supabase.co";
     static final String SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xZ2pkY2p6bmpicWVmZ3lvaWNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI2MzM2MTAsImV4cCI6MjA0ODIwOTYxMH0.quwMnNHNMUOQp3h92cdNkgk3y67Ufifiyut-MNDJBmQ";
-
+    private static final int MAX_REQUESTS_PER_MINUTE = 5; // Giới hạn số request mỗi phút
+    private static final RateLimiter loginLimiter = new RateLimiter(TimeUnit.MINUTES.toMillis(1), MAX_REQUESTS_PER_MINUTE);
+    private static final RateLimiter registerLimiter = new RateLimiter(TimeUnit.MINUTES.toMillis(1), MAX_REQUESTS_PER_MINUTE);
     public final OkHttpClient client;
     public final String baseUrl;
 
@@ -34,9 +37,12 @@ public class SupabaseClient {
         client.newCall(request).enqueue(callback);
     }
     public void loginUser(String email, String password, Callback callback) {
-        String url = SUPABASE_URL + "/auth/v1/token?grant_type=password";
+        if (!loginLimiter.allowRequest(email)) {
+            callback.onFailure(null, new IOException("Too many requests. Please try again later."));
+            return;
+        }
 
-        // Tạo payload JSON cho đăng nhập
+        String url = SUPABASE_URL + "/auth/v1/token?grant_type=password";
         JsonObject loginPayload = new JsonObject();
         loginPayload.addProperty("email", email);
         loginPayload.addProperty("password", password);
@@ -53,9 +59,12 @@ public class SupabaseClient {
         client.newCall(request).enqueue(callback);
     }
     public void registerUser(String email, String password, String phoneNumber, String role, String name, Callback callback) {
-        String url = SUPABASE_URL + "/auth/v1/signup";
+        if (!registerLimiter.allowRequest(email)) {
+            callback.onFailure(null, new IOException("Too many requests. Please try again later."));
+            return;
+        }
 
-        // Tạo payload JSON cho đăng ký
+        String url = SUPABASE_URL + "/auth/v1/signup";
         JsonObject registerPayload = new JsonObject();
         registerPayload.addProperty("email", email);
         registerPayload.addProperty("password", password);
@@ -63,8 +72,8 @@ public class SupabaseClient {
         JsonObject userMetadata = new JsonObject();
         userMetadata.addProperty("phone_number", phoneNumber);
         userMetadata.addProperty("role", role);
-        userMetadata.addProperty("password",password);
-        userMetadata.addProperty("name",name);
+        userMetadata.addProperty("password", password);
+        userMetadata.addProperty("name", name);
         registerPayload.add("data", userMetadata);
 
         RequestBody body = RequestBody.create(registerPayload.toString(), MediaType.get("application/json"));
@@ -76,30 +85,7 @@ public class SupabaseClient {
                 .post(body)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                callback.onFailure(call, e); // Gọi callback để hiển thị lỗi đăng ký
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
-                    try {
-                        JsonObject jsonResponse = JsonParser.parseString(responseBody).getAsJsonObject();
-
-                        // Supabase sẽ gửi email xác nhận, chỉ cần thông báo cho người dùng
-                        callback.onResponse(call, response);
-
-                    } catch (Exception e) {
-                        callback.onFailure(call, new IOException("Error parsing registration response: " + e.getMessage()));
-                    }
-                } else {
-                    callback.onResponse(call, response); // Trả về lỗi nếu đăng ký thất bại
-                }
-            }
-        });
+        client.newCall(request).enqueue(callback);
     }
 
 

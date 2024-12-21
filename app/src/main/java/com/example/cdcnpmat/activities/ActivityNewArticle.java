@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.cdcnpmat.Model.Bean.Articles;
 import com.example.cdcnpmat.Model.Bean.Categories;
 import com.example.cdcnpmat.Model.DAO.ArticlesDAO;
@@ -42,8 +46,8 @@ public class ActivityNewArticle extends AppCompatActivity {
     private CategoriesDAOImpl categoriesDAO;
     private ArticlesDAOImpl articlesDAO;
 
-    // ActivityResultLauncher để chọn ảnh
-    private ActivityResultLauncher<Intent> imagePickerLauncher;
+    // ActivityResultLauncher để chọn hình ảnh
+    private ActivityResultLauncher<PickVisualMediaRequest> pickVisualMediaLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +57,21 @@ public class ActivityNewArticle extends AppCompatActivity {
         // Ánh xạ các thành phần giao diện
         initializeViews();
 
-        // Đăng ký launcher để chọn ảnh
-        imagePickerLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        selectedImageUri = result.getData().getData();
+        // Đăng ký ActivityResultLauncher với PickVisualMedia
+        pickVisualMediaLauncher = registerForActivityResult(
+                new ActivityResultContracts.PickVisualMedia(),
+                uri -> {
+                    if (uri != null) {
+                        selectedImageUri = uri;
                         articleImageView.setImageURI(selectedImageUri); // Hiển thị ảnh đã chọn
+                    } else {
+                        Toast.makeText(this, "Không có hình ảnh được chọn", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
         // Xử lý sự kiện
-        btnChooseImage.setOnClickListener(v -> openImageChooser());
+        btnChooseImage.setOnClickListener(v -> openImagePicker());
         btnSubmit.setOnClickListener(v -> addArticle());
         profileIcon.setOnClickListener(v -> navigateToProfile());
         homeIcon.setOnClickListener(v -> navigateToHomePage());
@@ -93,12 +99,13 @@ public class ActivityNewArticle extends AppCompatActivity {
         btnChooseImage = findViewById(R.id.btn_choose_image);
     }
 
-    // Mở bộ chọn ảnh
-    private void openImageChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        imagePickerLauncher.launch(Intent.createChooser(intent, "Chọn ảnh bài viết"));
+    // Mở bộ chọn hình ảnh
+    private void openImagePicker() {
+        pickVisualMediaLauncher.launch(
+                new PickVisualMediaRequest.Builder()
+                        .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE) // Chỉ chọn hình ảnh
+                        .build()
+        );
     }
 
     // Load danh sách danh mục vào Spinner
@@ -159,22 +166,54 @@ public class ActivityNewArticle extends AppCompatActivity {
         });
 
         categoriesDAO.findByname(selectedCategory, handler);
-    }
-
-    // Điều hướng
-    private void navigateToProfile() {
-        startActivity(new Intent(this, ProfileActivity.class));
-    }
-
-    private void navigateToHomePage() {
-        startActivity(new Intent(this, HomePageActivity.class));
+    }private void navigateToProfile() {
+        SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+        String role = sharedPreferences.getString("role", "unknow");
+        if (isUserLoggedIn()) {
+            if (role.equalsIgnoreCase("admin")) {
+                Intent intent = new Intent(ActivityNewArticle.this, ProfileAdminActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(ActivityNewArticle.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        } else {
+            Intent intent = new Intent(ActivityNewArticle.this, Non_Login_Activity.class);
+            startActivity(intent);
+        }
     }
 
     private void navigateToAuthorArticles() {
-        startActivity(new Intent(this, AuthorActivity.class));
+        if (isUserLoggedIn()) {
+            SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+            String role = sharedPreferences.getString("role", "unknow");
+            if (role.equalsIgnoreCase("admin")) {
+                Intent intent = new Intent(ActivityNewArticle.this, AdminActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(ActivityNewArticle.this, HomePageActivity.class);
+                startActivity(intent);
+            }
+
+        } else {
+            Intent intent = new Intent(ActivityNewArticle.this, Non_Login_Activity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void navigateToHomePage() {
+        Intent intent = new Intent(ActivityNewArticle.this, HomePageActivity.class);
+        startActivity(intent);
     }
 
     private void navigateToSettings() {
-        startActivity(new Intent(this, SettingsActivity.class));
+        Intent intent = new Intent(ActivityNewArticle.this, SettingsActivity.class);
+        startActivity(intent);
     }
+
+    private boolean isUserLoggedIn() {
+        SharedPreferences sharedPreferences = getSharedPreferences("supabase_auth", MODE_PRIVATE);
+        return sharedPreferences.contains("access_token");
+    }
+
 }

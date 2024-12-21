@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/container_main_screen">
 
-    <!-- Background Shape -->
+    <!-- Hình ảnh nền -->
     <ImageView
         android:id="@+id/img_shape"
         android:layout_width="290dp"
@@ -16,25 +16,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/img_shape" />
 
-    <!-- Tiêu Đề Trang -->
-    <TextView
-        android:id="@+id/txt_home_page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:text="Chi Tiết Bài Viết"
-        android:textColor="#FF000000"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <!-- Nút Thông Báo -->
-
-
-    <!-- Nút Menu -->
-
-
-    <!-- Nội Dung Bài Viết -->
+    <!-- Nội dung bài viết và bình luận -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,20 +28,31 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Tiêu Đề Bài Viết -->
+            <!-- Tiêu đề bài viết -->
             <TextView
                 android:id="@+id/articleTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:text="Tiêu Đề Bài Viết"
+                android:layout_marginTop="80dp"
+                android:text="Article Title"
                 android:textColor="#000"
                 android:textSize="20sp"
-                android:layout_marginTop="80dp"
                 android:textStyle="bold" />
 
-            <!-- Thông Tin Tác Giả -->
+            <!-- Nút chỉnh sửa bài viết -->
+            <Button
+                android:id="@+id/editArticleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Chỉnh sửa"
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:background="@android:drawable/btn_default" />
+
+            <!-- Thông tin tác giả -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +63,7 @@
                     android:id="@+id/authorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tác Giả"
+                    android:text="Author"
                     android:textColor="#6A6A6A"
                     android:textSize="14sp" />
 
@@ -82,67 +75,84 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Hình Ảnh -->
-
-            <!-- Nội Dung -->
+            <!-- Nội dung bài viết -->
             <WebView
                 android:id="@+id/articleContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nội dung bài viết"
-                android:textColor="#4D4D4D"
-                android:textSize="18sp"
-                android:lineSpacingExtra="4dp"
                 tools:ignore="WebViewLayout" />
 
-            <!-- Timestamp -->
+            <!-- Thời gian bài viết -->
             <TextView
                 android:id="@+id/articleTimestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ngày Đăng"
+                android:text="Timestamp"
                 android:textColor="#6A6A6A"
                 android:textSize="14sp" />
 
-            <!-- Các Nút Sửa và Xóa -->
+            <!-- Phần bình luận -->
             <LinearLayout
+                android:id="@+id/commentsSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginTop="16dp"
-                android:gravity="center">
+                android:padding="8dp"
+                android:background="#F2F2F2">
 
-                <Button
-                    android:id="@+id/btn_edit"
+                <TextView
+                    android:id="@+id/commentsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/button_background"
-                    android:text="Sửa"
-                    android:textColor="#FFFFFF"
-                    android:padding="10dp"
-                    android:textSize="14sp" />
+                    android:text="Bình luận"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
 
-                <Button
-                    android:id="@+id/btn_delete"
-                    android:layout_width="wrap_content"
+                <!-- Danh sách bình luận -->
+                <ListView
+                    android:id="@+id/commentsListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="1dp" />
+
+                <!-- Thêm bình luận mới -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_background"
-                    android:text="Xóa"
-                    android:textColor="#FFFFFF"
-                    android:padding="10dp"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <EditText
+                        android:id="@+id/commentInput"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Viết bình luận..."
+                        android:padding="8dp"
+                        android:background="@android:drawable/edit_text"
+                        android:inputType="text" />
+
+                    <Button
+                        android:id="@+id/commentSubmitButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gửi"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Thanh Điều Hướng Ở Dưới -->
+    <!-- Thanh điều hướng -->
     <LinearLayout
         android:id="@+id/container_frame"
         android:layout_width="match_parent"
         android:layout_height="73dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="-5dp"
         android:background="@drawable/container_frame"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
@@ -161,6 +171,11 @@
                 android:layout_gravity="center"
                 android:src="@drawable/image_home" />
         </FrameLayout>
+
+        <!-- Profile Section -->
+
+
+        <!-- Applications Section -->
         <FrameLayout
             android:id="@+id/container_group4"
             android:layout_width="80dp"
@@ -174,7 +189,6 @@
                 android:layout_gravity="center"
                 android:src="@drawable/image_list" />
         </FrameLayout>
-        <!-- Profile Section -->
         <FrameLayout
             android:id="@+id/container_group6"
             android:layout_width="80dp"
@@ -188,7 +202,6 @@
                 android:layout_gravity="center"
                 android:src="@drawable/image_account_circle" />
         </FrameLayout>
-
         <!-- Settings Section -->
         <FrameLayout
             android:id="@+id/container_group5"
@@ -203,8 +216,5 @@
                 android:layout_gravity="center"
                 android:src="@drawable/setting" />
         </FrameLayout>
-
-        <!-- Applications Section -->
-
     </LinearLayout>
 </FrameLayout>

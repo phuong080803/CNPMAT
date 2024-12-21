@@ -9,7 +9,7 @@ import java.util.List;
 public interface CategoriesDAO {
     public List<Categories> findAll();
 
-
+    public int findByNameSync(String categoryName);
     void addCate(String nameCate) throws JSONException;
 
     public Categories findById(int id);
